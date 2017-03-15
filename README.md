@@ -1,4 +1,1 @@
-# uphere-server!!!!@@@@@@@@@@
-Hey
-
-[![CircleCI](https://circleci.com/gh/uphere2017/uphere-server/tree/dev.svg?style=svg)](https://circleci.com/gh/uphere2017/uphere-server/tree/dev)
+# uphere-server [![CircleCI](https://circleci.com/gh/uphere2017/uphere-server/tree/dev.svg?style=svg)](https://circleci.com/gh/uphere2017/uphere-server/tree/dev)  [![Code Climate](https://codeclimate.com/github/uphere2017/uphere-server/badges/gpa.svg)](https://codeclimate.com/github/uphere2017/uphere-server)
