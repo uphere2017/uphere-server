@@ -6,6 +6,7 @@ var server = app.listen(3000, function(){
 
 app.get('/', function(req, res){
     res.send('Hello World');
+    console.log('hello world');
 });
 
 module.exports = app; 
