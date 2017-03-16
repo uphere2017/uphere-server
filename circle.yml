@@ -1,7 +1,6 @@
 machine:
   node:
-    # Circle will use node v4.0.0
-    version: 4.0.0
+    version: 6.9.4
 
 test:
   override:
