@@ -13,14 +13,24 @@
     "blanket": "^1.2.3",
     "chai": "^3.5.0",
     "coveralls": "^2.12.0",
+    "gulp": "^3.9.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-notify": "^3.0.0",
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.3.0",
     "supertest": "^3.0.0"
   },
   "config": {
     "blanket": {
-      "pattern": ["server.js", "src"],
-      "data-cover-never": ["node_modules", "spec"]
+      "pattern": [
+        "server.js",
+        "src"
+      ],
+      "data-cover-never": [
+        "node_modules",
+        "spec"
+      ]
     }
   }
 }
