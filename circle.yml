@@ -1,9 +1,27 @@
 machine:
   node:
     version: 6.9.4
-
+dependencies:
+  pre:
+    - pip install awscli
+    - chmod +x deploy.sh
+    - ./deploy.sh
 test:
   override:
     - npm test
   post:
     - npm run coveralls
+deployment:
+  production:
+    branch: dev
+    codedeploy:
+      uphere:
+        application_root: /
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: kmmdong1
+            key_pattern: uphereAPI-{BRANCH}-{SHORT_COMMIT}
+        region: ap-northeast-2
+        deployment_group: Production
+        deployment_config: CodeDeployDefault.AllAtOnce
