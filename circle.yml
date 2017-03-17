@@ -20,7 +20,7 @@ deployment:
         revision_location:
           revision_type: S3
           s3_location:
-            bucket: kmmdong1
+            bucket: uphereprod
             key_pattern: uphereAPI-{BRANCH}-{SHORT_COMMIT}
         region: ap-northeast-2
         deployment_group: Production
