@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /srv/node/
+cd ~/node
 node server.js

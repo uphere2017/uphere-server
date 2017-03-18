@@ -1,3 +1,6 @@
 #!/bin/bash
-sudo rm -rf /srv/node/*
-mkdir srv && cd srv && mkdir node
+
+yum -y update
+curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
+yum -y install nodejs
+
