@@ -5,7 +5,7 @@ files:
     destination: /srv/node/
 hooks:
   BeforeInstall:
-    - location: deployment/before_intall.sh
+    - location: deployment/before_install.sh
       timeout: 300
       runas: root
     - location: deployment/install_dependencies.sh
