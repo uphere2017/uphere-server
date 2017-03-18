@@ -3,14 +3,21 @@ os: linux
 files:
   - source: /
     destination: /srv/node/
+
+permissions:
+- object: /
+   pattern: "**"
+   owner: ec2-user
+   group: ec2-user
+
 hooks:
   BeforeInstall:
     - location: deployment/before_install.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
     - location: deployment/install_dependencies.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
     - location: deployment/start_server.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
