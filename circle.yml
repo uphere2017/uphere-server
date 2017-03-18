@@ -24,4 +24,4 @@ deployment:
             key_pattern: uphereAPI-{BRANCH}-{SHORT_COMMIT}
         region: ap-northeast-2
         deployment_group: Production
-        deployment_config: CodeDeployDefault.AllAtOnce
+        deployment_config: CodeDeployDefault.OneAtTime
