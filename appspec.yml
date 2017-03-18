@@ -2,21 +2,26 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /srv/node/
+    destination: /home/ec2-user/node
 
 permissions:
-- object: /
-   pattern: "**"
-   owner: ec2-user
+- object: /home/ec2-user
+  owner: ec2-user
+  group: ec2-user
+  type:
+    - directory
+    - file
 
 hooks:
   BeforeInstall:
     - location: deployment/before_install.sh
       timeout: 300
-      runas: ec2-user
+      runas: root
+  AfterInstall:
     - location: deployment/install_dependencies.sh
-      timeout: 300
+      timeout: 600
       runas: ec2-user
+  ApplicationStart:    
     - location: deployment/start_server.sh
-      timeout: 300
+      timeout: 120
       runas: ec2-user
