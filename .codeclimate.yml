@@ -4,6 +4,11 @@ engines:
     config:
       languages:
       - javascript
+  eslint:
+    enabled: true
+    checks:
+      complexity:
+        enabled: true
 ratings:
   paths:
   - src/**
