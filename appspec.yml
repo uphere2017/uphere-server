@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+  - source: /server.js
+    destination: /srv/node/
+hooks:
+  BeforeInstall:
+    - location: deployment/before_intall.sh
+      timeout: 300
+      runas: root
+    - location: deployment/install_dependencies.sh
+      timeout: 300
+      runas: root
+    - location: deployment/start_server.sh
+      timeout: 300
+      runas: root
