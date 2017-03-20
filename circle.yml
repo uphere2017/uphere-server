@@ -14,7 +14,7 @@ test:
 deployment:
   production:
     branch: dev
-      commands:
+    commands:
       - chomd +x deploy2.sh
       - ./deploy2.sh
     codedeploy:
