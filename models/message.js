@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 var Message = new Schema({
     text: String,
