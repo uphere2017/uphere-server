@@ -15,8 +15,8 @@ deployment:
   production:
     branch: dev
       commands:
-          - chmod +x deploy.sh
-          - ./deploy.sh
+            - chmod +x beforedeploy.sh
+            - ./beforedeploy.sh
     codedeploy:
       uphere:
         application_root: /
