@@ -2,7 +2,7 @@ machine:
   node:
     version: 6.9.4
 dependencies:
-  overide:
+  override:
     - pip install awscli
     - chmod +x deploy.sh
     - ./deploy.sh
