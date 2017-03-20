@@ -9,13 +9,13 @@ describe('Test Mocha', function() {
       .expect(200, done);
   });
 
-  it('Should be Content text is Hello World', function(done) {
+  it('Should be Content text is Hello Uphere', function(done) {
     request(app)
       .get('/')
       .expect('Content-Type', 'text/html')
       .expect(200)
       .end(function(err, res){
-        expect(res.text).to.equal('Hello World');
+        expect(res.text).to.equal('Hello Uphere');
         done();
       });
   });
