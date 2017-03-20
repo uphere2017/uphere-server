@@ -6,6 +6,7 @@ dependencies:
     - pip install awscli
     - chmod +x deploy.sh
     - ./deploy.sh
+    - npm install
 test:
   override:
     - npm test
