@@ -1,6 +1,11 @@
 machine:
   node:
     version: 6.9.4
+dependencies:
+  pre:
+    - pip install awscli
+    - chmod +x beforedeploy.sh
+    - ./beforedeploy.sh
 test:
   override:
     - npm test
@@ -10,7 +15,6 @@ deployment:
   production:
     branch: dev
       commands:
-          - pip install awscli
           - chmod +x deploy.sh
           - ./deploy.sh
     codedeploy:
