@@ -4,8 +4,8 @@ machine:
 dependencies:
   pre:
     - pip install awscli
-    - chmod +x beforedeploy.sh
-    - ./beforedeploy.sh
+    - chmod +x deploy.sh
+    - ./deploy.sh
 test:
   override:
     - npm test
@@ -15,8 +15,8 @@ deployment:
   production:
     branch: dev
       commands:
-            - chmod +x beforedeploy.sh
-            - ./beforedeploy.sh
+      - chomd +x deploy2.sh
+      - ./deploy2.sh
     codedeploy:
       uphere:
         application_root: /
