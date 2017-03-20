@@ -7,7 +7,7 @@ var server = app.listen(8080, function() {
 });
 
 app.get('/', function(req, res){
-    res.send('Hello Uphere!!!!');
+    res.send('Hello Uphere');
 });
 
 module.exports = app;
