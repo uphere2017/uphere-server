@@ -1,11 +1,6 @@
 machine:
   node:
     version: 6.9.4
-dependencies:
-  pre:
-    - pip install awscli
-    - chmod +x deploy.sh
-    - ./deploy.sh
 test:
   override:
     - npm test
@@ -14,6 +9,10 @@ test:
 deployment:
   production:
     branch: dev
+      commands:
+          - pip install awscli
+          - chmod +x deploy.sh
+          - ./deploy.sh
     codedeploy:
       uphere:
         application_root: /
