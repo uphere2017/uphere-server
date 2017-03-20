@@ -15,9 +15,6 @@ permissions:
 
 hooks:
   BeforeInstall:
-    - location: deployment/chmod_install.sh
-      timeout: 300
-      runas: root
     - location: deployment/before_install.sh
       timeout: 300
       runas: root
