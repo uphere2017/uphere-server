@@ -6,6 +6,6 @@ describe('Test Mocha', function() {
   it('Should answer GET requests for / with a 200 status code', function(done) {
     request(app)
       .get('/')
-      .expect(200, done);
+      .expect(404, done);
   });
 });
