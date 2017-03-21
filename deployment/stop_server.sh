@@ -1,5 +1,3 @@
 #!/bin/bash
 
-cd ~/node
-
-pm2 stop all || true
+fuser -k 8080/tcp
