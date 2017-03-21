@@ -12,7 +12,8 @@
     "mongodb": "^2.2.25",
     "mongoose": "^4.9.1",
     "morgan": "^1.8.1",
-    "pm2": "^2.4.2"
+    "pm2": "^2.4.2",
+    "socket.io": "^1.7.3"
   },
   "devDependencies": {
     "blanket": "^1.2.3",
