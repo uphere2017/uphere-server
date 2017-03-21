@@ -2,7 +2,7 @@ module.exports = function (env) {
   switch(env){
     case "development":
       return {
-        url: 'mongodb://127.0.0.1:27017',
+        url: 'mongodb://127.0.0.1:27017/upheredb/',
       };
       break;
     case "production":
