@@ -1,9 +1,8 @@
 var express = require('express');
+var app = express();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
-var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var clients = {};
@@ -19,13 +18,24 @@ var db = mongoose.connection;
 db.on('error', function (err) {
   console.log('Mongoose default connection error: ' + err)
 });
+
 db.once('open', function () {
   console.log('Connected to mongodb server')
 });
 
-app.get('/', function (req, res) {
-  res.send('Hello Uphere');
-});
+var allowCORS = function(req, res, next) {
+  res.header('Acess-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  if ('OPTIONS' === req.metod) {
+    res.send(200);
+  } else {
+    return next();
+  }
+};
+ 
+ // 이 부분은 app.use(router)전에 추가
+app.use(allowCORS);
 
 io.on('connection', function(socket) {
   console.log('A user connected');
