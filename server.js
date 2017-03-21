@@ -1,39 +1,20 @@
 var express = require('express');
 var app = express();
-var User = require('./models/user');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var clients = {};
 
-mongoose.Promise = global.Promise;
+var env = process.env.NODE_ENV || 'development';
 
-/**
- * GET /users/:user_id/friend-list
- *
- * @returns [ { object } ] Each object is friend user data.
- */
-app.get('/users/:user_id/friend-list', function (req, res) {
-  var userId = req.params.user_id;
-  User.findOne({ _id: userId }).exec()
-    .then(function (userData) {
-      var friends = userData.friend_list.split(',');
-      User.find({ facebook_id: { $in: friends } }).select('-friend_list').exec(function (err, friendList) {
-        if (err) {
-          res.sendStatus(404);
-        }
-        res.json(friendList);
-      });
-    })
-    .catch(function(err) {
-      res.sendStatus(404);
-    });
-});
-
-// DB Connection
-require('./database');
+// credentials
+var db = require('./config/database')(env);
+require('./database')(db.url);
 
 // Middlewares
 require('./middlewares')(app);
+
+// Routes
+require('./config/routes')(app);
 
 // WebSocket
 require('./sockets')(io);

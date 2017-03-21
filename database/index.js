@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 
-module.exports = function () {
-  mongoose.connect('mongodb://master:djqgldj1234@ds137100.mlab.com:37100/upheredb/');
+mongoose.Promise = global.Promise;
+
+module.exports = function (url) {
+  mongoose.connect(url);
 
   var db = mongoose.connection;
 
