@@ -11,4 +11,6 @@ module.exports = function (app) {
   app.get('/secret', function (req, res) {
     res.send('Hello, server is live!');
   });
+
+  app.get('/users/:user_id', userController.getUserData);
 };

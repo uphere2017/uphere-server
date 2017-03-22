@@ -17,6 +17,17 @@ var getFriendList = function (req, res) {
     });
 };
 
+var getUserData = function (req, res) {
+  User.findOne({ _id: req.params.user_id })
+    .then(function (userData) {
+      res.send(userData);
+    })
+    .catch(function (err) {
+      res.sendStatus(404);
+    });
+};
+
 module.exports = {
-  getFriendList: getFriendList
+  getFriendList: getFriendList,
+  getUserData: getUserData
 };
