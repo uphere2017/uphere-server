@@ -1,4 +1,5 @@
 var userController = require('../controllers/userController');
+var messageController = require('../controllers/messageController');
 
 module.exports = function (app) {
   /**
@@ -15,4 +16,7 @@ module.exports = function (app) {
   app.get('/users/:user_id', userController.getUserData);
 
   app.post('/users', userController.createUser);
+
+  app.post('/chats/:chat_id', messageController.postMessageData);
+
 };
