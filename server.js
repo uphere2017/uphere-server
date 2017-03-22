@@ -7,7 +7,7 @@ var env = process.env.NODE_ENV || 'development';
 
 // credentials
 var db = require('./config/database')(env);
-require('./database')(db.url);
+require('./database').connect(db.url);
 
 // Middlewares
 require('./middlewares')(app);
