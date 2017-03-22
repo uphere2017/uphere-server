@@ -6,6 +6,8 @@ module.exports = function (app) {
    *
    * @returns [ { object } ] Each object is friend user data.
    */
+  app.get('/users/:user_id', userController.getUserData); 
+
   app.get('/users/:user_id/friend-list', userController.getFriendList);
 
   app.get('/secret', function (req, res) {
