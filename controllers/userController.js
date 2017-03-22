@@ -1,5 +1,15 @@
 var User = require('../models/user');
 
+var getUserData = function (req, res) {
+  User.findOne({ _id: user_id })
+    .then(function (userData) {
+      res.send(userData);
+    })
+    .catch(function (err) {
+      res.sendStatus(404);
+    });
+};
+
 var getFriendList = function (req, res) {
   var userId = req.params.user_id;
   User.findOne({ _id: userId }).exec()
@@ -19,4 +29,5 @@ var getFriendList = function (req, res) {
 
 module.exports = {
   getFriendList: getFriendList
+  getUserData: getUserData
 };
