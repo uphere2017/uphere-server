@@ -13,4 +13,6 @@ module.exports = function (app) {
   });
 
   app.get('/users/:user_id', userController.getUserData);
+
+  app.post('/users', userController.createUser);
 };
