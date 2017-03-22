@@ -3,8 +3,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Message = new Schema({
-    text: String,
-    sender_id: String
+  uphere_id: { type: Number, required: true },
+  text: String,
+  sender_id: { type: Schema.Types.ObjectId, ref: 'User'},
+  created_at: {type: Date, default: new Date()}
 });
 
 module.exports = mongoose.model('Message', Message);
