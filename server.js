@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var clients = {};
 
 var env = process.env.NODE_ENV || 'development';
 
