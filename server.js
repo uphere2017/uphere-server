@@ -26,4 +26,5 @@ server.listen(8080, function () {
   console.log('Express listening on port http://%s:%s', host, port);
 });
 
-module.exports = app;
+exports.app = app;
+exports.db = db;
