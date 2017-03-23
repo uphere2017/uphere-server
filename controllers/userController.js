@@ -37,31 +37,49 @@ var getUserData = function (req, res) {
 };
 
 var createUser = function (req, res) {
-  var user = new User({
-    name: req.body.name,
-    profile_image_url: req.body.profile_image_url,
-    email_address: req.body.email_address,
-    facebook_id: req.body.facebook_id
-  });
-
-  user.createWithId(function (err, userInfo) {
-    var relationship = new Relationship();
-    relationship.host_id = userInfo.uphere_id;
-
-    User.find({ facebook_id: { $in: req.body.friend_list } })
-      .then(function (friends) {
-        relationship.friends_id = friends.map(function (friend) {
-          return friend.uphere_id;
-        });
-
-        relationship.createWithId(function (err) {
-          if (err) {
-            res.sendStatus(500);
-          } else {
-            res.status(201).send({id: userInfo.uphere_id});
-          }
-        });
+  User.findOne({ name: req.body.name }, function (err, exists) {
+    if (err) {
+      res.sendStatus(500);
+    } else if (exists) {
+      return res.status(409).json({
+        error: "USERNAME EXISTS"
       });
+    }
+
+    var user = new User({
+      name: req.body.name,
+      profile_image_url: req.body.profile_image_url,
+      email_address: req.body.email_address,
+      facebook_id: req.body.facebook_id
+    });
+
+    user.createWithId(function (err, userInfo) {
+      var relationship = new Relationship();
+      relationship.host_id = userInfo.uphere_id;
+
+      User.find({ facebook_id: { $in: JSON.parse(req.body.friend_list) } })
+        .then(function (friends) {
+          relationship.friends_id = friends.map(function (friend) {
+            return friend.uphere_id;
+          });
+
+          relationship.createWithId(function (err, relationship) {
+            if (err) {
+              res.sendStatus(500);
+            } else {
+              relationship.friends_id.forEach(function (friendId) {
+                Relationship.update({ host_id: friendId }, { $push: { friends_id: relationship.uphere_id }})
+                  .exec(function (err) {
+                    if (err) {
+                      res.sendStatus(500)
+                    }
+                  });
+              });
+              res.status(201).send({ id: userInfo.uphere_id });
+            }
+          });
+        });
+    });
   });
 };
 
