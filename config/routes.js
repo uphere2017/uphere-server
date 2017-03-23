@@ -1,5 +1,6 @@
 var userController = require('../controllers/userController');
 var messageController = require('../controllers/messageController');
+var chatController = require('../controllers/chatController');
 var userChatController = require('../controllers/userChatController');
 
 module.exports = function (app) {
