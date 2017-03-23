@@ -1,5 +1,6 @@
 var userController = require('../controllers/userController');
 var messageController = require('../controllers/messageController');
+var chatController = require('../controllers/chatController');
 
 module.exports = function (app) {
   /**
@@ -19,4 +20,5 @@ module.exports = function (app) {
 
   app.post('/chats/:chat_id', messageController.postMessageData);
 
+  app.post('/chats', chatController.createChatRoom);
 };
