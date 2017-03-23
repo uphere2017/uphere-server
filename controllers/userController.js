@@ -57,7 +57,7 @@ var createUser = function (req, res) {
       var relationship = new Relationship();
       relationship.host_id = userInfo.uphere_id;
 
-      User.find({ facebook_id: { $in: JSON.parse(req.body.friend_list) } })
+      User.find({ facebook_id: { $in: req.body.friend_list } })
         .then(function (friends) {
           relationship.friends_id = friends.map(function (friend) {
             return friend.uphere_id;

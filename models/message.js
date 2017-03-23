@@ -7,7 +7,7 @@ var Message = new Schema({
   uphere_id: { type: Number, required: true },
   text: String,
   sender_id: { type: Number, ref: 'User'},
-  created_at: {type: Date, default: new Date()}
+  created_at: { type: Date, default: new Date() }
 });
 
 /*
