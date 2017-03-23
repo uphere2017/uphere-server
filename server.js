@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
-var io = require('socket.io')(server);
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -16,7 +15,7 @@ require('./middlewares')(app);
 require('./config/routes')(app);
 
 // WebSocket
-require('./sockets')(io);
+require('./sockets')(server);
 
 // Start server
 server.listen(8080, function () {

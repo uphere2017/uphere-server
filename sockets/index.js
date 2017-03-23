@@ -1,13 +1,15 @@
-var clients = {};
+const WebSocket = require('ws');
 
-module.exports = function (io) {
-  io.on('connection', function (socket) {
-    clients[socket.id] = socket;
+module.exports = function (server) {
+  const wss = new WebSocket.Server({ server: server });
 
-    socket.on('disconnect', function () {
-      if (clients[socket.id]) {
-        delete clients[socket.id];
-      }
+  wss.on('connection', (ws) => {
+    console.log('WebSocket Connection has been established.');
+
+    ws.on('message', (message) => {
+      ws.send(message);
     });
+
+    ws.send('Why hello there!');
   });
 };
