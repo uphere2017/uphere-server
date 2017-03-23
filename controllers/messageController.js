@@ -2,11 +2,11 @@ var Message = require('../models/message');
 var Chat = require('../models/chat');
 
 var postMessageData = function (req, res) {
-  var message = new Message({ 
-    text: req.body.text, 
+  var message = new Message({
+    text: req.body.text,
     sender_id: req.body.sender_id
   });
-  
+
   message.createWithId(function (err, data) {
     if (err) {
       res.sendStatus(500);

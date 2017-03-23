@@ -1,5 +1,6 @@
 var userController = require('../controllers/userController');
 var messageController = require('../controllers/messageController');
+var userChatController = require('../controllers/userChatController');
 
 module.exports = function (app) {
   /**
@@ -13,10 +14,10 @@ module.exports = function (app) {
     res.send('Hello, server is live!');
   });
 
-  app.get('/users/:user_id', userController.getUserData);
-
   app.post('/users', userController.createUser);
+  app.get('/users/:user_id', userController.getUserData);
+  app.get('/users/:user_id/chats', userChatController.getUserChatList);
 
+  app.post('/chats', userChatController.createChatRoom);
   app.post('/chats/:chat_id', messageController.postMessageData);
-
 };
