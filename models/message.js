@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var counterMixin = require('../database').counterMixin;
 
 var Schema = mongoose.Schema;
 
@@ -9,4 +10,13 @@ var Message = new Schema({
   created_at: {type: Date, default: new Date()}
 });
 
-module.exports = mongoose.model('Message', Message);
+/*
+ * counterMixin automagically creates an unique 'uphere_id' to each model.
+ * Use model instance method 'createWithId' instead of 'save'.
+ * 'createWithId' takes a callback as an argument.
+ *
+ * < example >
+ * var user = new User();
+ * user.createWithId(function (err, user) {});
+*/
+module.exports = counterMixin(mongoose.model('Message', Message), 'message_id');

@@ -7,5 +7,4 @@ var CounterSchema = new Schema({
   name: { type: String }
 });
 
-
 module.exports = mongoose.model('Counter', CounterSchema);

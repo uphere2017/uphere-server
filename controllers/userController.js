@@ -36,27 +36,25 @@ var createUser = function (req, res) {
     facebook_id: req.body.facebook_id
   });
 
-  user.save()
-    .then(function (userInfo) {
-      var hostId = userInfo._id;
-      var friendsId = req.body.friend_list;
+  user.createWithId(function (err, userInfo) {
+    var relationship = new Relationship();
+    relationship.host_id = userInfo.uphere_id;
 
-      var relationship = new Relationship();
-      relationship.host_id = hostId;
-      User.find({facebook_id: {$in: JSON.parse(friendsId)}})
-        .then(function (friends) {
-          relationship.friends_id = friends.map(function (friend) {
-            return friend._id;
-          });
-          relationship.save(function (err) {
-            if (err) {
-              res.sendStatus(500);
-            } else {
-              res.status(201).send({id: hostId});
-            }
-          })
+    User.find({ facebook_id: { $in: req.body.friend_list } })
+      .then(function (friends) {
+        relationship.friends_id = friends.map(function (friend) {
+          return friend.uphere_id;
         });
-    });
+
+        relationship.createWithId(function (err) {
+          if (err) {
+            res.sendStatus(500);
+          } else {
+            res.status(201).send({id: userInfo.uphere_id});
+          }
+        });
+      });
+  });
 };
 
 module.exports = {
