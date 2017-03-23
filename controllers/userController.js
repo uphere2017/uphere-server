@@ -3,19 +3,27 @@ var Relationship = require('../models/relationship');
 
 var getFriendList = function (req, res) {
   var userId = req.params.user_id;
-  User.findOne({_id: userId}).exec()
-    .then(function (userData) {
-      var friends = userData.friend_list.split(',');
-      User.find({facebook_id: {$in: friends}}).select('-friend_list').exec(function (err, friendList) {
-        if (err) {
-          res.sendStatus(404);
-        }
-        res.json(friendList);
-      });
-    })
-    .catch(function (err) {
-      res.sendStatus(404);
-    });
+
+  Relationship.findOne({ host_id: userId })
+    .exec(function (err, relationship) {
+      if (err) {
+        res.sendStatus(500);
+      } else if (relationship === null) {
+        res.json([]);
+      } else {
+        var friends = relationship.friends_id;
+
+        User.find({ uphere_id: { $in: friends } })
+          .select('-friend_list')
+          .exec(function (err, friends) {
+            if (err) {
+              res.sendStatus(500);
+            } else {
+              res.status(200).json(friends);
+            }
+          });
+      }
+  });
 };
 
 var getUserData = function (req, res) {
