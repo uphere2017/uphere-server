@@ -1,15 +1,25 @@
-const WebSocket = require('ws');
+var socketIO = require('socket.io');
+var clients = {};
 
 module.exports = function (server) {
-  const wss = new WebSocket.Server({ server: server });
+  var io = socketIO(server);
 
-  wss.on('connection', (ws) => {
-    console.log('WebSocket Connection has been established.');
+  io.on('connection', function (socket) {
+    console.log('Connected:', socket.id);
 
-    ws.on('message', (message) => {
-      ws.send(message);
+    clients[socket.id] = socket;
+
+    socket.on('disconnect', function () {
+      console.log('Disconnected', socket.id);
+
+      if (clients[socket.id]) {
+        delete clients[socket.id];
+      }
     });
 
-    ws.send('Why hello there!');
+    // Example usage
+    socket.on('message', function (data) {
+      console.log('New message', data);
+    });
   });
 };
