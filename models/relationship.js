@@ -1,21 +1,30 @@
 var mongoose = require('mongoose');
-var counterMixin = require('../database').counterMixin;
+var Counter = require('./counters');
 
 var Schema = mongoose.Schema;
 
 var Relationship = new Schema({
-  uphere_id: { type: Number, required: true },
+  uphere_id: { type: Number, required: true, default: 0 },
   host_id: { type : Number, ref: 'User' },
   friends_id: [{ type : Number, ref: 'User' }]
 });
 
-/*
- * counterMixin automagically creates an unique 'uphere_id' to each model.
- * Use model instance method 'createWithId' instead of 'save'.
- * 'createWithId' takes a callback as an argument.
- *
- * < example >
- * var user = new User();
- * user.createWithId(function (err, user) {});
-*/
-module.exports = counterMixin(mongoose.model('Relationship', Relationship), 'relationship_id');
+Relationship.pre('save', function(next){
+  var that = this;
+
+  Counter.findOneAndUpdate({
+      name: 'relationship_id'
+    }, {
+      $inc: { seq: 1 }
+    }, {
+      upsert: true,
+      new: true
+    }).then(function (counter) {
+      that.uphere_id = counter.seq;
+      next();
+    }).catch(function (err) {
+      console.log('Errored:', err);
+    });
+});
+
+module.exports = mongoose.model('Relationship', Relationship);

@@ -1,5 +1,6 @@
 // CORS Headers
 var allowCORS = function (req, res, next) {
+
   var allowedOrigins = [
     'http://127.0.0.1:3000',
     'http://localhost:3000'

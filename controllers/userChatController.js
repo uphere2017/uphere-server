@@ -7,22 +7,23 @@ var createChatRoom = function (req, res) {
     if (err) {
       res.sendStatus(404);
     }
-
     if (Chats.length === 0) {
       var chat = new Chat();
       chat.participants = req.body.participants;
       chat.messages = req.body.messages;
-      chat.createWithId(function (err, chat) {
-        if (err) {
-          res.sendStatus(500);
-        }
-        res.sendStatus(201).send({ chat_id: chat.uphere_id })
-      });
+      chat.save()
+        .then(data => {
+          res.status(201).send({ chat_id: data.uphere_id })
+        })
+        .catch(err => {
+          res.status(500).send(err);
+        })
     } else {
       res.sendStatus(208);
     }
   });
 };
+
 
 var getUserChatList = function (req, res) {
   var userId = req.params.user_id;

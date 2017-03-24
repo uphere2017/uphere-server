@@ -53,7 +53,7 @@ var createUser = function (req, res) {
       facebook_id: req.body.facebook_id
     });
 
-    user.createWithId(function (err, userInfo) {
+    user.save(function (err, userInfo) {
       var relationship = new Relationship();
       relationship.host_id = userInfo.uphere_id;
 
@@ -63,7 +63,7 @@ var createUser = function (req, res) {
             return friend.uphere_id;
           });
 
-          relationship.createWithId(function (err, relationship) {
+          relationship.save(function (err, relationship) {
             if (err) {
               res.sendStatus(500);
             } else {
