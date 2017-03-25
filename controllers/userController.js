@@ -27,7 +27,7 @@ var getFriendList = function (req, res) {
 };
 
 var getUserData = function (req, res) {
-  User.findOne({ _id: req.params.user_id })
+  User.findOne({ uphere_id: req.params.user_id })
     .then(function (userData) {
       res.send(userData);
     })
@@ -37,12 +37,12 @@ var getUserData = function (req, res) {
 };
 
 var createUser = function (req, res) {
-  User.findOne({ name: req.body.name }, function (err, exists) {
+  User.findOne({ facebook_id: req.body.facebook_id }, function (err, existingUser) {
     if (err) {
-      res.sendStatus(500);
-    } else if (exists) {
+      return res.sendStatus(500);
+    } else if (existingUser) {
       return res.status(409).json({
-        error: "USERNAME EXISTS"
+        user: existingUser
       });
     }
 
@@ -75,7 +75,7 @@ var createUser = function (req, res) {
                     }
                   });
               });
-              res.status(201).send({ id: userInfo.uphere_id });
+              res.status(201).send({ user: userInfo });
             }
           });
         });
