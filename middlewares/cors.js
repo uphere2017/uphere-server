@@ -3,7 +3,8 @@ var allowCORS = function (req, res, next) {
 
   var allowedOrigins = [
     'http://127.0.0.1:3000',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://uphere.world'
   ];
   var origin = req.headers.origin;
 
@@ -18,7 +19,6 @@ var allowCORS = function (req, res, next) {
     res.send(200);
     return;
   }
-
   return next();
 };
 
