@@ -7,11 +7,11 @@ var postMessageData = function (req, res) {
     sender_id: req.body.sender_id
   });
 
-  message.createWithId(function (err, data) {
+  message.save(function (err, data) {
     if (err) {
       res.sendStatus(500);
     } else {
-      Chat.update({ _id: req.params.chat_id }, { $push: { messages: data.uphere_id } })
+      Chat.update({}, { $push: { messages: data.uphere_id } })
         .then(function (msg) {
           res.status(201).send({ id: data.uphere_id });
         })
