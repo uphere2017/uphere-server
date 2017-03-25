@@ -27,7 +27,7 @@ var createChatRoom = function (req, res) {
 
 var getUserChatList = function (req, res) {
   var userId = req.params.user_id;
-
+  
   Chat.find({ participants: { $all: [userId] }})
     .exec((err, chats) => {
       if (err) {
