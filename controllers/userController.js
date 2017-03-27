@@ -41,7 +41,7 @@ var createUser = function (req, res) {
     if (err) {
       return res.sendStatus(500);
     } else if (existingUser) {
-      return res.status(409).json({
+      return res.status(200).json({
         user: existingUser
       });
     }
