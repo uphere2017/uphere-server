@@ -3,7 +3,7 @@ var EVENTS = require('./events');
 var clients = {};
 
 var findSocketByUphereID = function (id) {
-  var friendSocketData = null;
+  var friendSocketData;
 
   for (var socketID in clients) {
     if (clients[socketID].user_uphere_id === id) {
@@ -11,7 +11,7 @@ var findSocketByUphereID = function (id) {
     }
   }
 
-  return friendSocketData.socket;
+  return friendSocketData ? friendSocketData.socket : null;
 };
 
 module.exports = function (server) {
