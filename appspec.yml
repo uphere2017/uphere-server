@@ -21,16 +21,16 @@ hooks:
   AfterInstall:
     - location: deployment/install_dependencies.sh
       timeout: 600
-      runas: ec2-user
+      runas: root
   ApplicationStart:
     - location: deployment/start_server.sh
       timeout: 300
-      runas: ec2-user
+      runas: root
   ApplicationStop:
     - location: deployment/stop_server.sh
       timeout: 300
-      runas: ec2-user
+      runas: root
   ValidateService:
     - location: deployment/validate.sh
       timeout: 300
-      runas: ec2-user
+      runas: root
