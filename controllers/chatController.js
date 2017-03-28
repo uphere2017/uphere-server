@@ -43,6 +43,7 @@ var getUserChatList = function (req, res) {
           var chat = chats[i];
 
           var resChat = {
+            uphere_id: chat.uphere_id,
             participants: chat.participants,
             messages: []
           };

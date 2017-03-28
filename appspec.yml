@@ -27,10 +27,10 @@ hooks:
       timeout: 300
       runas: ec2-user
   ApplicationStop:
-     - location: deployment/stop_server.sh
-       timeout: 300
-       runas: ec2-user
+    - location: deployment/stop_server.sh
+      timeout: 300
+      runas: ec2-user
   ValidateService:
-     - location: deployment/validate.sh
-       timeout: 300
-       runas: ec2-user
+    - location: deployment/validate.sh
+      timeout: 300
+      runas: ec2-user
