@@ -65,7 +65,8 @@ var getUserChatList = function (req, res) {
                     resChat.messages.push({
                       sender_id: message[0].sender_id,
                       uphere_id: message[0].uphere_id,
-                      text: message[0].text
+                      text: message[0].text,
+                      created_at: message[0].created_at
                     });
 
                     if (numOfMessages === resChat.messages.length && finalResponse.chats.length === numOfChats) {
