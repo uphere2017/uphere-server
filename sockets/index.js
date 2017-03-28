@@ -1,5 +1,18 @@
 var socketIO = require('socket.io');
+var EVENTS = require('./events');
 var clients = {};
+
+var findSocketByUphereID = function (id) {
+  var friendSocketData;
+
+  for (var socketID in clients) {
+    if (clients[socketID].user_uphere_id === id) {
+      friendSocketData = clients[socketID];
+    }
+  }
+
+  return friendSocketData ? friendSocketData.socket : null;
+};
 
 module.exports = function (server) {
   var io = socketIO(server);
@@ -20,19 +33,18 @@ module.exports = function (server) {
       }
     });
 
-    socket.on('LOG_IN', function (data) {
+    socket.on(EVENTS.LOG_IN, function (data) {
       clients[socket.id].user_uphere_id = data.user_uphere_id;
     });
 
-    socket.on('USER_ONLINE', function (data) {
+    socket.on(EVENTS.USER_ONLINE, function (data) {
       data.friend_list.forEach(function (friendID) {
-        for (var socketID in clients) {
-          var friendSocket = clients[socketID];
-          if (friendSocket.user_uphere_id === friendID) {
-            friendSocket.socket.emit('FRIEND_ONLINE', {
-              friend_id: data.user_uphere_id
-            });
-          }
+        var friendSocket = findSocketByUphereID(friendID);
+
+        if (friendSocket) {
+          friendSocket.emit(EVENTS.FRIEND_ONLINE, {
+            friend_id: data.user_uphere_id
+          });
         }
       });
     });
