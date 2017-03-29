@@ -24,7 +24,20 @@ var createChat = function (req, res) {
           res.status(500).send(err);
         })
     } else {
-      res.sendStatus(208);
+      var chat = chats[0];
+      User.find({
+        uphere_id: { $in: chat.participants }
+      }, function (err, docs) {
+        chat.participants = docs;
+
+        Message.find({
+          uphere_id: { $in: chat.messages }
+        }, function (err, docs) {
+          chat.messages = docs;
+
+          res.status(208).send({ chat: chat });
+        });
+      });
     }
   });
 };
