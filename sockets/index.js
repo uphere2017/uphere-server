@@ -48,5 +48,21 @@ module.exports = function (server) {
         }
       });
     });
+
+    socket.on(EVENTS.SEND_NEW_MESSAGE, function (data) {
+      var targetSocket = findSocketByUphereID(data.receipient_id);
+
+      if (targetSocket) {
+        targetSocket.emit(EVENTS.RECEIVE_NEW_MESSAGE, {
+          message: {
+            text: data.text,
+            sender_id: data.sender_id,
+            created_at: data.created_at,
+            uphere_id: data.text_id
+          },
+          chat_id: data.chat_id
+        });
+      }
+    });
   });
 };
