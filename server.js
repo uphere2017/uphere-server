@@ -4,6 +4,8 @@ var server = require('http').createServer(app);
 
 var env = process.env.NODE_ENV || 'development';
 
+app.disable('etag');
+
 // credentials
 var db = require('./config/database')(env);
 require('./database').connect(db.url);
