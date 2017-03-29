@@ -13,7 +13,12 @@ var createChat = function (req, res) {
       chat.messages = req.body.messages;
       chat.save()
         .then(data => {
-          res.status(201).send({ chat_id: data.uphere_id })
+          User.find({
+            uphere_id: { $in: chat.participants }
+          }, function (err, docs) {
+            data.participants = docs;
+            res.status(201).send({ chat: data })
+          });
         })
         .catch(err => {
           res.status(500).send(err);
