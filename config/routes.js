@@ -1,6 +1,7 @@
 var userController = require('../controllers/userController');
 var messageController = require('../controllers/messageController');
 var chatController = require('../controllers/chatController');
+var jwtMiddlewares = require('../middlewares/jwt');
 
 module.exports = function (app) {
   /**
@@ -8,6 +9,7 @@ module.exports = function (app) {
    *
    * @returns [ { object } ] Each object is friend user data.
    */
+  
   app.get('/users/:user_id/friend-list', userController.getFriendList);
 
   app.get('/secret', function (req, res) {
@@ -15,9 +17,9 @@ module.exports = function (app) {
   });
 
   app.post('/users', userController.createUser);
-  app.get('/users/:user_id', userController.getUserData);
-  app.get('/users/:user_id/chats', chatController.getUserChatList);
+  app.get('/users/:user_id', jwtMiddlewares, userController.getUserData);
+  app.get('/users/:user_id/chats', jwtMiddlewares, chatController.getUserChatList);
 
-  app.post('/chats', chatController.createChat);
-  app.post('/chats/:chat_id', messageController.postMessageData);
+  app.post('/chats', jwtMiddlewares, chatController.createChat);
+  app.post('/chats/:chat_id', jwtMiddlewares, messageController.postMessageData);
 };
