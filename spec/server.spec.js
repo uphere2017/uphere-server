@@ -1,4 +1,4 @@
-//데이터 베이스 모두 지우는 게 필요해서 잠시만 닫겠습니다.
+//데이터 베이스 모두 지우는 게 필요해서 잠시만 닫겠습니다...
 /*
 var app = require('../server');
 var request = require('supertest');
