@@ -1,6 +1,7 @@
 var Chat = require('../models/chat');
 var User = require('../models/user');
 var Message = require('../models/message');
+var Q = require('q');
 
 var createChat = function (req, res) {
   Chat.find({ participants: req.body.participants }, function (err, chats) {
@@ -51,58 +52,30 @@ var getUserChatList = function (req, res) {
         return res.status(500).send(err);
       }
 
-      var numOfChats = chats.length;
-      var finalResponse = {
-        chats: []
-      };
+      var promiseArr = [];
 
-      if (numOfChats) {
-        for (var i = 0; i < numOfChats; i++) {
-          var chat = chats[i];
+      chats.forEach(function (chat) {
+        chat.messages.forEach(function (message) {
+          promiseArr.push(Message.find({ uphere_id: message }));
+        });
+      });
 
-          var resChat = {
-            uphere_id: chat.uphere_id,
-            participants: chat.participants,
-            messages: []
-          };
+      Q.all(promiseArr)
+       .done(function (values) {
+         values.forEach(function (arr) {
+           var message = arr[0]._doc;
 
-          var numOfMessages = chat.messages.length;
+           chats.forEach(function (chat) {
+             chat.messages.forEach(function (id, i) {
+               if (id === message.uphere_id) {
+                 chat.messages[i] = message;
+               }
+             });
+           });
+         });
 
-          finalResponse.chats.push(resChat);
-
-          if (numOfMessages) {
-            for (var j = 0; j < numOfMessages; j++) {
-              var message = chat.messages[j];
-
-              Message.find({ uphere_id: message })
-                .exec((err, message) => {
-                  if (err) {
-                    res.status(500).send(err);
-                    j = chat.messages.length;
-                  } else {
-                    resChat.messages.push({
-                      sender_id: message[0].sender_id,
-                      uphere_id: message[0].uphere_id,
-                      text: message[0].text,
-                      created_at: message[0].created_at
-                    });
-
-                    if (numOfMessages === resChat.messages.length && finalResponse.chats.length === numOfChats) {
-                      j = chat.messages.length;
-                      i = chats.length;
-                      res.json(finalResponse);
-                    }
-                  }
-                });
-            }
-          } else {
-            res.json(finalResponse);
-            i = chats.length;
-          }
-        }
-      } else {
-        res.json(finalResponse);
-      }
+         res.status(200).send({ chats: chats });
+       });
     });
 };
 
