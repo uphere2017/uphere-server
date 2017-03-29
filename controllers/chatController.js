@@ -3,11 +3,11 @@ var User = require('../models/user');
 var Message = require('../models/message');
 
 var createChat = function (req, res) {
-  Chat.find({ participants: req.body.participants }, function (err, Chats) {
+  Chat.find({ participants: req.body.participants }, function (err, chats) {
     if (err) {
       res.sendStatus(404);
     }
-    if (Chats.length === 0) {
+    if (chats.length === 0) {
       var chat = new Chat();
       chat.participants = req.body.participants;
       chat.messages = req.body.messages;
