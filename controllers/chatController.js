@@ -4,10 +4,17 @@ var Message = require('../models/message');
 var Q = require('q');
 
 var createChat = function (req, res) {
-  Chat.find({ participants: req.body.participants }, function (err, chats) {
+  var participants = req.body.participants.slice();
+  var reversedParticipants = req.body.participants.reverse();
+
+  Chat.find({ "$or": [
+    { participants: participants },
+    { participants: reversedParticipants }
+  ]}, function (err, chats) {
     if (err) {
       res.sendStatus(404);
     }
+
     if (chats.length === 0) {
       var chat = new Chat();
       chat.participants = req.body.participants;
