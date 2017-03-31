@@ -1,3 +1,3 @@
 #!/bin/bash
 
-fuser -k 8080/tcp
+sudo killall node
