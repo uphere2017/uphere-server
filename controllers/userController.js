@@ -85,7 +85,7 @@ var loginUser = function (req, res) {
                   });
               });
 
-              accessToken = jwt.sign({ id: existingUser.facebook_id }, tokenConfig, {
+              accessToken = jwt.sign({ id: req.body.facebook_id }, tokenConfig, {
                 expiresIn: 2880
               });
 
