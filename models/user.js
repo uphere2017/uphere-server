@@ -9,7 +9,8 @@ var User = new Schema({
   profile_image_url: String,
   email_address: String,
   facebook_id: String,
-  created_at: { type: Date, default: new Date() }
+  created_at: { type: Date, default: new Date() },
+  emotion_status: { type: Number, default: 0 }
 });
 
 User.pre('save', function(next){
