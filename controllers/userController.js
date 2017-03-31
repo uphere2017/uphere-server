@@ -1,5 +1,7 @@
 var User = require('../models/user');
 var Relationship = require('../models/relationship');
+var jwt = require('jsonwebtoken');
+var tokenConfig = require('../config/token');
 
 var getFriendList = function (req, res) {
   var userId = req.params.user_id;
@@ -36,13 +38,20 @@ var getUserData = function (req, res) {
     });
 };
 
-var createUser = function (req, res) {
+var loginUser = function (req, res) {
   User.findOne({ facebook_id: req.body.facebook_id }, function (err, existingUser) {
+    var accessToken = null;
+
     if (err) {
       return res.sendStatus(500);
     } else if (existingUser) {
+      accessToken = jwt.sign({ id: existingUser.facebook_id }, tokenConfig, {
+        expiresIn: 2880
+      });
+
       return res.status(200).json({
-        user: existingUser
+        user: existingUser,
+        accessToken: accessToken
       });
     }
 
@@ -75,7 +84,15 @@ var createUser = function (req, res) {
                     }
                   });
               });
-              res.status(201).send({ user: userInfo });
+
+              accessToken = jwt.sign({ id: existingUser.facebook_id }, tokenConfig, {
+                expiresIn: 2880
+              });
+
+              res.status(201).send({
+                user: userInfo,
+                accessToken: accessToken
+              });
             }
           });
         });
@@ -86,5 +103,5 @@ var createUser = function (req, res) {
 module.exports = {
   getFriendList: getFriendList,
   getUserData: getUserData,
-  createUser: createUser
+  loginUser: loginUser
 };
