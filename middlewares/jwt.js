@@ -3,27 +3,29 @@ var tokenConfig = require('../config/token');
 var User = require('../models/user');
 
 module.exports = function (req, res, next) {
-  var token = req.headers['x-access-token'];
+  var authorizationHeader = req.headers['authorization'];
 
-  var decoded = jwt.verify(token, tokenConfig);
+  if (!authorizationHeader) {
+    return res.sendStatus(401);
+  }
+
+  var token = authorizationHeader.split(" ")[1];
+
   if (token) {
-    jwt.verify(token, tokenConfig, function (err, decoded) {
+    jwt.verify(token, tokenConfig, function (err, decodedToken) {
       if (err) {
-        return res.json({ error: true });
+        return res.sendStatus(403);
       }
 
-    User.findOne({ facebook_id: decoded.id })
-      .then(function (userData) {
-        req.decoded = decoded;
-        next();
-      })
-      .catch(function (err) {
-        res.sendStatus(404);
-      });
-    })
-  } else {
-    return res.status(403).send({
-      error: true
+      User.findOne({ facebook_id: decodedToken.id })
+        .then(function (userData) {
+          next();
+        })
+        .catch(function (err) {
+          res.sendStatus(403);
+        });
     });
+  } else {
+    return res.sendStatus(401);
   }
 };

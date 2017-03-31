@@ -38,19 +38,20 @@ var getUserData = function (req, res) {
     });
 };
 
-var createUser = function (req, res) {
+var loginUser = function (req, res) {
   User.findOne({ facebook_id: req.body.facebook_id }, function (err, existingUser) {
+    var accessToken = null;
+
     if (err) {
       return res.sendStatus(500);
     } else if (existingUser) {
-      var fbID = { id: existingUser.facebook_id };
-      var token = jwt.sign(fbID, tokenConfig, {
-        expiresIn: 1440
+      accessToken = jwt.sign({ id: existingUser.facebook_id }, tokenConfig, {
+        expiresIn: 2880
       });
 
       return res.status(200).json({
         user: existingUser,
-        token
+        accessToken: accessToken
       });
     }
 
@@ -83,14 +84,14 @@ var createUser = function (req, res) {
                     }
                   });
               });
-              var fbID = { id: userInfo.facebook_id };
-              var token = jwt.sign(fbID, tokenConfig, {
-                expiresIn: 1440
+
+              accessToken = jwt.sign({ id: existingUser.facebook_id }, tokenConfig, {
+                expiresIn: 2880
               });
 
-              res.status(201).send({ 
+              res.status(201).send({
                 user: userInfo,
-                token
+                accessToken: accessToken
               });
             }
           });
@@ -102,5 +103,5 @@ var createUser = function (req, res) {
 module.exports = {
   getFriendList: getFriendList,
   getUserData: getUserData,
-  createUser: createUser
+  loginUser: loginUser
 };
