@@ -4,6 +4,14 @@ var User = require('../models/user');
 var Q = require('q');
 
 var postMessageData = function (req, res) {
+  var chatId = req.params.chat_id;
+
+  if (isNaN(Number(chatId))) {
+    return res.status(404).json({
+      error: 'Invalid Parameter'
+    });
+  }
+
   var message = new Message({
     text: req.body.text,
     sender_id: req.body.sender_id
