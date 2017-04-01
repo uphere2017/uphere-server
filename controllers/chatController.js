@@ -4,6 +4,12 @@ var Message = require('../models/message');
 var Q = require('q');
 
 var createChat = function (req, res) {
+  if (!Array.isArray(req.body.participants) || !Array.isArray(req.body.messages)) {
+    return res.status(404).json({
+      error: 'Invalid Data'
+    });
+  }
+
   var participants = req.body.participants.slice();
   var reversedParticipants = req.body.participants.reverse();
 
@@ -52,6 +58,12 @@ var createChat = function (req, res) {
 
 var getUserChatList = function (req, res) {
   var userId = req.params.user_id;
+
+  if (isNaN(Number(userId))) {
+    return res.status(404).json({
+      error: 'Invalid Parameter'
+    });
+  }
 
   Chat.find({ participants: { $all: [userId] }})
     .exec((err, chats) => {

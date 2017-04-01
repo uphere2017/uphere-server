@@ -6,6 +6,12 @@ var tokenConfig = require('../config/token');
 var getFriendList = function (req, res) {
   var userId = req.params.user_id;
 
+  if (isNaN(Number(userId))) {
+    return res.status(404).json({
+      error: 'Invalid Parameter'
+    });
+  }
+
   Relationship.findOne({ host_id: userId })
     .exec(function (err, relationship) {
       if (err) {
@@ -29,6 +35,12 @@ var getFriendList = function (req, res) {
 };
 
 var getUserData = function (req, res) {
+  if (isNaN(Number(req.params.user_id))) {
+    return res.status(404).json({
+      error: 'Invalid Parameter'
+    });
+  }
+
   User.findOne({ uphere_id: req.params.user_id })
     .then(function (userData) {
       res.send(userData);
