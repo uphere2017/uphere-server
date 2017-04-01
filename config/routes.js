@@ -15,4 +15,6 @@ module.exports = function (app) {
 
   app.post('/chats', verifyToken, chatController.createChat);
   app.post('/chats/:chat_id', verifyToken, messageController.postMessageData);
+
+  app.delete('/chats/:chat_id', chatController.deleteChat);
 };

@@ -3,6 +3,27 @@ var User = require('../models/user');
 var Message = require('../models/message');
 var Q = require('q');
 
+var deleteChat = function (req, res) {
+  Chat.findOne({ uphere_id: req.params.chat_id })
+    .exec((err, chat) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      var deletePromArr = [Chat.remove({ uphere_id: req.params.chat_id })];
+      if (chat.messages.length !== 0) {
+        chat.messages.forEach(message => {
+          deletePromArr.push(Message.remove({ uphere_id: message }));
+        });
+      }
+
+      Q.all(deletePromArr)
+       .done(function (values) {
+          res.sendStatus(204);
+       })
+    })
+}
+
 var createChat = function (req, res) {
   if (!Array.isArray(req.body.participants) || !Array.isArray(req.body.messages)) {
     return res.status(404).json({
@@ -100,5 +121,6 @@ var getUserChatList = function (req, res) {
 
 module.exports = {
   getUserChatList: getUserChatList,
-  createChat: createChat
+  createChat: createChat,
+  deleteChat: deleteChat
 };
