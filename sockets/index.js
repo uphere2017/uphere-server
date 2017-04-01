@@ -63,6 +63,17 @@ module.exports = function (server) {
           chat_id: data.chat_id
         });
       }
+
+      data.friend_list.forEach(function (friendID, i) {
+        var friendSocket = findSocketByUphereID(friendID);
+
+        if (friendSocket) {
+          friendSocket.emit(EVENTS.FRIEND_EMOTION_CHANGE, {
+            emotion_status: data.emotion_status,
+            friend_id: data.sender_id
+          });
+        }
+      });
     });
   });
 };
