@@ -10,6 +10,7 @@ var User = new Schema({
   email_address: String,
   facebook_id: String,
   created_at: { type: Date, default: new Date() },
+  isOnOff: false,
   emotion_status: { type: Number, default: 0 }
 });
 
