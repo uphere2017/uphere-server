@@ -18,6 +18,6 @@ module.exports = function (app) {
   app.post('/chats/:chat_id', verifyToken, messageController.postMessageData);
 
   app.delete('/chats/:chat_id', chatController.deleteChat);
-  app.post('/upload', fileController.uploadFile);
+  app.post('/upload/:chat_id', fileController.uploadFile);
 
 };
