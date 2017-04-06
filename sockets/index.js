@@ -26,11 +26,7 @@ module.exports = function (server) {
     };
 
     socket.on('disconnect', function () {
-      console.log('Disconnected', socket.id);
-
-      if (clients[socket.id]) {
-        delete clients[socket.id];
-      }
+      console.log('Disconnected', socket.id);      
     });
 
     socket.on(EVENTS.LOG_IN, function (data) {
@@ -40,7 +36,6 @@ module.exports = function (server) {
     socket.on(EVENTS.USER_ONLINE, function (data) {
       data.friend_list.forEach(function (friendID) {
         var friendSocket = findSocketByUphereID(friendID);
-
         if (friendSocket) {
           friendSocket.emit(EVENTS.FRIEND_ONLINE, {
             friend_id: data.user_uphere_id

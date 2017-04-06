@@ -1,6 +1,7 @@
 var userController = require('../controllers/userController');
 var messageController = require('../controllers/messageController');
 var chatController = require('../controllers/chatController');
+var fileController = require('../controllers/fileController');
 var verifyToken = require('../middlewares/jwt');
 
 module.exports = function (app) {
@@ -17,4 +18,6 @@ module.exports = function (app) {
   app.post('/chats/:chat_id', verifyToken, messageController.postMessageData);
 
   app.delete('/chats/:chat_id', chatController.deleteChat);
+
+  app.post('/chats/upload', verifyToken, fileController.uploadFile);
 };
