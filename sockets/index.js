@@ -44,7 +44,7 @@ module.exports = function (server) {
       data.friend_list.forEach(function (friendID) {
         var friendSocket = findSocketByUphereID(friendID);
 
-        if (friendSocket) {
+        if (friendSocket && !!friendID) {
           friendSocket.emit(EVENTS.FRIEND_ONLINE, {
             friend_id: data.user_uphere_id
           });
