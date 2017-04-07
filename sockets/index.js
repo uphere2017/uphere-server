@@ -29,6 +29,7 @@ module.exports = function (server) {
       console.log('Disconnected', socket.id);
 
       if (clients[socket.id]) {
+        socket.broadcast.emit('FRIEND_DISCONNECT', clients[socket.id].user_uphere_id);
         delete clients[socket.id];
       }
     });
@@ -38,12 +39,17 @@ module.exports = function (server) {
     });
 
     socket.on(EVENTS.USER_ONLINE, function (data) {
+      var mySocket = findSocketByUphereID(data.user_uphere_id);
+
       data.friend_list.forEach(function (friendID) {
         var friendSocket = findSocketByUphereID(friendID);
 
         if (friendSocket) {
           friendSocket.emit(EVENTS.FRIEND_ONLINE, {
             friend_id: data.user_uphere_id
+          });
+          mySocket.emit(EVENTS.FRIEND_ONLINE, {
+            friend_id: friendID
           });
         }
       });
