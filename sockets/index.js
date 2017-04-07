@@ -60,7 +60,8 @@ module.exports = function (server) {
             created_at: data.created_at,
             uphere_id: data.text_id
           },
-          chat_id: data.chat_id
+          chat_id: data.chat_id,
+          chat: data.chat
         });
       }
 

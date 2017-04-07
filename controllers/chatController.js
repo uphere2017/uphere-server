@@ -11,7 +11,7 @@ var deleteChat = function (req, res) {
       }
 
       var deletePromArr = [Chat.remove({ uphere_id: req.params.chat_id })];
-      if (chat.messages.length !== 0) {
+      if (chat && chat.messages.length !== 0) {
         chat.messages.forEach(message => {
           deletePromArr.push(Message.remove({ uphere_id: message }));
         });
