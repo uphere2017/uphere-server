@@ -1,4 +1,4 @@
-# Uphere Server &middot; [![Code Climate](https://codeclimate.com/github/uphere2017/uphere-server/badges/gpa.svg)](https://codeclimate.com/github/uphere2017/uphere-server) [![Coverage Status](https://coveralls.io/repos/github/uphere2017/uphere-server/badge.svg?branch=dev)](https://coveralls.io/github/uphere2017/uphere-server?branch=dev) [![CircleCI](https://circleci.com/gh/uphere2017/uphere-server/tree/dev.svg?style=shield&circle-token=802c88ba534ab62792f2fdfe53958fd020637b97)](https://circleci.com/gh/uphere2017/uphere-server/tree/dev)
+# [Uphere Server](http://uphere.world) &middot; [![Code Climate](https://codeclimate.com/github/uphere2017/uphere-server/badges/gpa.svg)](https://codeclimate.com/github/uphere2017/uphere-server) [![Coverage Status](https://coveralls.io/repos/github/uphere2017/uphere-server/badge.svg?branch=dev)](https://coveralls.io/github/uphere2017/uphere-server?branch=dev) [![CircleCI](https://circleci.com/gh/uphere2017/uphere-server/tree/dev.svg?style=shield&circle-token=802c88ba534ab62792f2fdfe53958fd020637b97)](https://circleci.com/gh/uphere2017/uphere-server/tree/dev)
 
 ## Introduction
 
@@ -92,7 +92,7 @@
 - CircleCI에서 빌드와 테스트를 통과하면 uphere-Server는 최종본은 서버용 AWS S3버킷으로 전달 되어진 후, AWS EC2 Instance가 저장합니다.
 - 최종적으로 AWS CodeDeploy 서비스를 통해 자동배포 됩니다.
 
-## TeamMember
+## Team Members
 
 [손효정](https://github.com/hyojeongson), [윤송이](https://github.com/inakarune), [도진호](https://github.com/JinHo-Do), [이시우](https://github.com/postsw7), [안정현](https://github.com/kmmdong)
 
