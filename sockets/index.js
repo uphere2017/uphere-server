@@ -43,10 +43,17 @@ module.exports = function (server) {
 
         if (friendSocket) {
           friendSocket.emit(EVENTS.FRIEND_ONLINE, {
-            friend_id: data.user_uphere_id
+            friend_id: data.user_uphere_id,
+            return_id: data.mySocketId
           });
         }
       });
+    });
+
+    socket.on('RETURN_SIGNAL', function({ return_id, myUphereId }) {
+      if (io.sockets.connected[return_id]) {
+        io.sockets.connected[return_id].emit('RETURN_SIGNAL', { myUphereId });
+      }
     });
 
     socket.on(EVENTS.SEND_NEW_MESSAGE, function (data) {
