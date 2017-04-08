@@ -4,6 +4,8 @@
 
 **Uphere**는 **Facebook Messenger**의 기본적인 기능과 Chatlog를 분석, 감정 상태를 실시간으로 반영한 이모티콘을 볼 수 있는 간단한 채팅 어플리케이션 입니다.
 
+[![ScreenShot](https://raw.githubusercontent.com/uphere2017/uphere-web/dev/uphere_img2.png)](https://www.youtube.com/watch?v=24z1YykrtPc)
+
 ## Requirements
 
 - Uphere는 Facebook API를 사용했습니다.
