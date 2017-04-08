@@ -17,7 +17,7 @@ var postMessageData = function (req, res) {
     sender_id: req.body.sender_id,
     created_at: req.body.created_at
   });
-  
+
   message.save(function (err, data) {
     if (err) {
       res.sendStatus(500);
