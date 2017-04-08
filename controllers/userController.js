@@ -60,7 +60,6 @@ var loginUser = function (req, res) {
       accessToken = jwt.sign({ id: existingUser.facebook_id }, tokenConfig, {
         expiresIn: 2880
       });
-
       return res.status(200).json({
         user: existingUser,
         accessToken: accessToken
