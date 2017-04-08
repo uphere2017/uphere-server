@@ -4,8 +4,6 @@
 
 **Uphere**는 **Facebook Messenger**의 기본적인 기능과 Chatlog를 분석, 감정 상태를 실시간으로 반영한 이모티콘을 볼 수 있는 간단한 채팅 어플리케이션 입니다.
 
----
-
 ## Requirements
 
 - Uphere는 Facebook API를 사용했습니다.
@@ -13,7 +11,6 @@
 - Facebook 가입이 선행되어야 합니다.
 - Chrome Browser를 권장합니다.
 
----
 ## Prerequisites
 
 [MongoDB](https://docs.mongodb.com/manual/installation/), Node.js 설치
@@ -50,8 +47,6 @@ npm start
 - 미확인 메시지 푸쉬 알림
 - JSON Web Token Authentication
 
----
-
 ## Client-Side
 
 - Babel을 통한 모던 자바스크립트(ES2015+)
@@ -63,8 +58,6 @@ npm start
 - 실시간 양방향 소통을 위한 Socket.io
 - 감정 분석을 위한 Sentiment analysis
 - CSS는 별도의 프레임워크를 사용하지 않았습니다.
-
----
 
 ## Server-Side
 
@@ -79,20 +72,14 @@ npm start
 - 빌드 자동화 툴인 Gulp
 - MongoDB 호스팅 플랫폼인 mlab
 
----
-
 ## Test
 
 - 자바스크립트 테스트 프레임워크 Mocha
 - BDD / TDD assertion 라이브러리 Chai
 
----
-
 ## Continuous Integration
 
 - 소스관리/빌드/테스트/배포의 지속적인 통합을 위한 CircleCI
-
----
 
 ## Deployment
 
@@ -105,21 +92,15 @@ npm start
 
 - AWS Codedeploy 배포 자동화 구축
 
----
-
 ## Version Control
 
 - Web, Server의 독립적인 관리를 위한 GIT Repo 구분
 - Branch, Pull Request 기반 개발 진행
 
----
-
 ## Collaboration Tool
 
 - Slack 팀원 간의 의사소통
 - Trello 스케쥴 관리 및 Task 배분
-
----
 
 ## DevOps
 
@@ -133,8 +114,6 @@ npm start
 - AWS CloudFront를 통해 웹사이트 전송을 가속화 합니다.
 - CircleCI 빌드와 테스트를 통과되면 uphere-Server의 최종본은 서버용 AWS S3버킷으로 전달 된 후, AWS EC2 Instance가 저장합니다.
 - AWS CodeDeploy로 자동 배포 됩니다.
-
----
 
 ## Things to do
 
