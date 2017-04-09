@@ -8,7 +8,7 @@ var allowCORS = function (req, res, next) {
     'http://jino.world.s3-website.ap-northeast-2.amazonaws.com',
     'http://www.doveloper.co.kr',
     'http://doveloper.co.kr',
-    'http://d2oitjpqq1924l.cloudfront.net'
+    'http://d19v4e1zwkccdj.cloudfront.net'
   ];
   var origin = req.headers.origin;
 
