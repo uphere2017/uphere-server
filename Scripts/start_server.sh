@@ -1,5 +1,5 @@
 #!/bin/bash
-if NODE_ENV=production forever list | grep /var/nodejs/server/server.js > /dev/null
+if forever list | grep /var/nodejs/server/server.js > /dev/null
 then
     echo "Server is running"
 else

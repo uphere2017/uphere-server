@@ -4,7 +4,7 @@ var Message = require('../models/message');
 var Chat = require('../models/chat');
 var fs = require('fs');
 
-AWS.config.loadFromPath('./config/credentials.json');
+AWS.config.loadFromPath('../config/credentials.json');
 
 var s3 = new AWS.S3();
 var bucketName = 'test-uphere';
