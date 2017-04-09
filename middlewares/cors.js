@@ -6,7 +6,8 @@ var allowCORS = function (req, res, next) {
     'http://localhost:3000',
     'http://uphere.world',
     'http://jino.world.s3-website.ap-northeast-2.amazonaws.com',
-    'http://www.doveloper.co.kr'
+    'http://www.doveloper.co.kr',
+    'http://d2oitjpqq1924l.cloudfront.net'
   ];
   var origin = req.headers.origin;
 
