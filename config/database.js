@@ -11,12 +11,12 @@ module.exports = function (env) {
       break;
     case "production":
       return {
-        url: 'mongodb://master:djqgldj1234@ds137100.mlab.com:37100/upheredb/',
+        url: 'mongodb://master:doveloper@ds149040.mlab.com:49040/uphere-testdb',
       };
       break;
     default:
       return {
-        url: 'mongodb://master:djqgldj1234@ds137100.mlab.com:37100/upheredb/',
+        url: 'mongodb://master:doveloper@ds149040.mlab.com:49040/uphere-testdb',
       };
   }
 };

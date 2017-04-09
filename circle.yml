@@ -14,13 +14,13 @@ deployment:
   production:
     branch: dev
     codedeploy:
-      uphere:
+      jino-server:
         application_root: /
         revision_location:
           revision_type: S3
           s3_location:
-            bucket: uphereprod
-            key_pattern: uphereAPI-{BRANCH}-{SHORT_COMMIT}
+            bucket: practice2433
+            key_pattern: test-{BRANCH}-{SHORT_COMMIT}
         region: ap-northeast-2
-        deployment_group: Production
+        deployment_group: jino-test
         deployment_config: CodeDeployDefault.OneAtATime
