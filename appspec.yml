@@ -1,36 +1,24 @@
+#!/bin/bash
 version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/node
-
-permissions:
-- object: /home/ec2-user
-  owner: ec2-user
-  group: ec2-user
-  mode: 777
-  type:
-    - directory
-    - file
+    destination: /var/nodejs/server
 
 hooks:
-  BeforeInstall:
-    - location: deployment/before_install.sh
+  ApplicationStop:
+    - location: Scripts/stop_server.sh
       timeout: 300
+      runas: ubuntu
+  BeforeInstall:
+    - location: Scripts/install_dependencies.sh
+      timeout: 600
       runas: root
   AfterInstall:
-    - location: deployment/install_dependencies.sh
-      timeout: 600
-      runas: ec2-user
+    - location: Scripts/change_permissions.sh
+      timeout: 300
+      runas: root
   ApplicationStart:
-    - location: deployment/start_server.sh
+    - location: Scripts/start_server.sh
       timeout: 300
-      runas: ec2-user
-  ApplicationStop:
-    - location: deployment/stop_server.sh
-      timeout: 300
-      runas: ec2-user
-  ValidateService:
-    - location: deployment/validate.sh
-      timeout: 300
-      runas: ec2-user
+      runas: ubuntu
