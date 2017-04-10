@@ -4,10 +4,8 @@ var Message = require('../models/message');
 var Chat = require('../models/chat');
 var fs = require('fs');
 
-AWS.config.loadFromPath('./config/credentials.json');
-
 var s3 = new AWS.S3();
-var bucketName = 'test-uphere';
+var myBucket = 'uphere.uploads';
 
 var uploadFile = function (req, res) {
   var form = new formidable.IncomingForm();
@@ -15,7 +13,7 @@ var uploadFile = function (req, res) {
   form.parse(req, function (err, fields, files) {
     var keyName = files.userfile.name;
       var params = {
-        Bucket: bucketName,
+        Bucket: myBucket,
         Key: keyName,
         ACL: 'public-read',
         Body: fs.createReadStream(files.userfile.path)
@@ -25,7 +23,7 @@ var uploadFile = function (req, res) {
         if (err) {
           return res.sendStatus(500);
         }
-        // Successfully uploaded data to " + bucketName + "/" + keyName);
+        // Successfully uploaded data to " + myBucket + "/" + keyName);
         var message = new Message({
           text: data.Location,
           sender_id: fields.userid,
