@@ -46,7 +46,10 @@ module.exports = function (server) {
 
         if (friendSocket && !!friendID) {
           friendSocket.emit(EVENTS.FRIEND_ONLINE, {
-            friend_id: data.user_uphere_id
+            friend_id: data.user_uphere_id,
+          });
+          mySocket.emit(EVENTS.FRIEND_ONLINE, {
+            friend_id: friendID
           });
           mySocket.emit(EVENTS.FRIEND_ONLINE, {
             friend_id: friendID
